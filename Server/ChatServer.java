@@ -24,7 +24,7 @@ public class ChatServer{
 
                     UserThread newUser = new UserThread(socket, this);
                     userThreads.add(newUser);
-                    newUser.start();
+                    newUser.run();
                 }
 
             } catch (IOException e) {
@@ -55,6 +55,12 @@ public class ChatServer{
             }
         }
 
+
+        //ADD USER
+        void addUsername(String userName) {
+            userNames.add(userName);
+        }
+
         //QUIT CHAT
         void removeUser(String userName, UserThread aUser) {
             boolean removed  = userNames.remove(userName);
@@ -69,8 +75,8 @@ public class ChatServer{
             return this.userNames;
         }
 
-        boolean isEmpty(){
-            return this.userNames.isEmpty();
+        boolean hasUsers(){
+            return !this.userNames.isEmpty();
         }
 
 

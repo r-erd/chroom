@@ -24,10 +24,10 @@ public class UserThread { //handles the connection for each connected client, se
             printUsers();
 
             String userName = reader.readLine();
-            server.addUserName(userName);
+            server.addUsername(userName);
 
             String serverMessage = "New user connected: " + userName;
-            server.broadcast(serverMessage, this);
+            server.transmit(serverMessage, this);
 
             String clientMessage;
 
@@ -35,7 +35,7 @@ public class UserThread { //handles the connection for each connected client, se
                 //do stuff while connected to the server
                 clientMessage = reader.readLine();
                 serverMessage = "[" + userName + "] : " + clientMessage;
-                server.broadcast(serverMessage); 
+                server.transmit(serverMessage, this); 
 
             } while (!clientMessage.equals("!quit"));
 
@@ -43,7 +43,7 @@ public class UserThread { //handles the connection for each connected client, se
             socket.close();
              
             serverMessage = userName + " disconnected.";
-            server.broadcast(serverMessage, this);  
+            server.transmit(serverMessage, this);  
 
         } catch (IOException e) {
             System.out.println("Error in UserThread: " + e.getMessage());
