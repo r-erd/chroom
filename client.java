@@ -20,10 +20,7 @@ public class client{
         System.out.println("client : " + "its me - the client");
         pr.println("its me - the client");
         pr.flush();
-
-
-        //this is a new comment
-
+        
 
         //RECEIVING
         InputStreamReader in = new InputStreamReader(inputStream);
