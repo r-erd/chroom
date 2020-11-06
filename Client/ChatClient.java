@@ -17,7 +17,7 @@ public class ChatClient {
 
     public void execute() {
         try {
-            Socket s = new Socket(hostname, port);
+            Socket socket = new Socket(hostname, port);
 
             System.out.println("connected to the server");
 
@@ -33,11 +33,11 @@ public class ChatClient {
     }
 
     //tools
-     void setUsernmae(String userName) {
+     void setUsername(String userName) {
          this.userName = userName;
      }
 
-     String getUserName() {
+     String getUsername() {
          return this.userName;
      }
 

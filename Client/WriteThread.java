@@ -31,7 +31,7 @@ public class WriteThread extends Thread {
         Console console = System.console();
         
         String userName = console.readLine("\nEnter your username: ");
-        client.setUserName(userName);
+        client.setUsername(userName);
         writer.println(userName);
 
         String text;

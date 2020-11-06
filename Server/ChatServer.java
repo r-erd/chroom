@@ -1,5 +1,3 @@
-package chat.server;
-
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -7,7 +5,7 @@ import java.util.*;
 
 public class ChatServer{
 
-        private int PORT;
+        private int port;
         //use sets to keep track of users and their respective threads, sets don't allow duplicates
         private Set<String> userNames = new HashSet<>();
         private Set<UserThread> userThreads = new HashSet<>();
