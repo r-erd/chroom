@@ -44,7 +44,7 @@ public class UserThread { //handles the connection for each connected client, se
             server.removeUser(userName, this);
             socket.close();
              
-            serverMessage = userName + " disconnected."
+            serverMessage = userName + " disconnected.";
             server.broadcast(serverMessage, this);  
 
         } catch (IOException e) {
@@ -65,7 +65,7 @@ public class UserThread { //handles the connection for each connected client, se
 
     //actually receives the messages by being called in the server for this thread with the message??
     void sendMessage(String message){
-        writer.println(message)
+        writer.println(message);
     }
 
 

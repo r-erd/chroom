@@ -13,7 +13,7 @@ public class ChatServer{
         private Set<UserThread> userThreads = new HashSet<>();
 
         public ChatServer(int port) {
-            this.port = port
+            this.port = port;
         }
 
         public void execute() {
@@ -100,5 +100,5 @@ public class ChatServer{
         pr.println("it's me - the server");
         pr.flush(); */
     
-    }
+    
 }

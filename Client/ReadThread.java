@@ -29,11 +29,11 @@ public void run() {
     while(true){
         try {
             String response = reader.readLine();
-            System.out.println("\n " + response;)
+            System.out.println("\n " + response);
 
             //print username after displaying the message
             if (client.getUsername() != null) {
-                System.out.println("[" client.getUsername() + "]:");
+                System.out.println("[" + client.getUsername() + "]:");
             }
 
         } catch (IOException e){
