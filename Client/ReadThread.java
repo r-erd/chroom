@@ -1,5 +1,3 @@
-package chat.client;
-
 import java.io.*;
 import java.net.*;
 
@@ -29,11 +27,11 @@ public void run() {
     while(true){
         try {
             String response = reader.readLine();
-            System.out.println("\n " + response);
+            System.out.println("\n" + response);
 
             //print username after displaying the message
             if (client.getUsername() != null) {
-                System.out.println("[" + client.getUsername() + "]:");
+                System.out.print("[" + client.getUsername() + "]:");
             }
 
         } catch (IOException e){

@@ -1,5 +1,3 @@
-package chat.client;
-
 import java.io.*;
 import java.net.*;
 
@@ -15,31 +13,29 @@ public class WriteThread extends Thread {
         this.client = client;
     
 
-    try {
-        OutputStream output = socket.getOutputStream();
-        writer = new PrintWriter(output, true);
+        try {
+            OutputStream output = socket.getOutputStream();
+            writer = new PrintWriter(output, true);
 
-    } catch (IOException e) {
-        System.out.println("Error getting output stream: " + e.getMessage());
-        e.printStackTrace();
-    }
-
-
+        } catch (IOException e) {
+            System.out.println("Error getting output stream: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void run() {
         Console console = System.console();
         
         String userName = console.readLine("\nEnter your username: ");
-        client.setUsername(userName);
-        writer.println(userName);
+        client.setUsername(this.userName);
+        writer.println(this.userName);
 
         String text;
 
         do {
-            text = console.readLine("[" + userName + "]: ");
-            writer.println(text);
-        } while (!text.equals("!quit"));
+            this.text = console.readLine("[" + this.userName + "]: ");
+            writer.println(this.text);
+        } while (!this.text.equals("!quit"));
 
         try {
             socket.close();

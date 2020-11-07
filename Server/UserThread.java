@@ -2,7 +2,7 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-public class UserThread { //handles the connection for each connected client, server starts one thread per user
+public class UserThread extends Thread { //handles the connection for each connected client, server starts one thread per user
 
     private Socket socket;
     private ChatServer server;
@@ -19,14 +19,14 @@ public class UserThread { //handles the connection for each connected client, se
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
             OutputStream output = socket.getOutputStream();
-            writer = new PrintWriter(output, true);
+            this.writer = new PrintWriter(output, true);
 
             printUsers();
 
             String userName = reader.readLine();
             server.addUsername(userName);
 
-            String serverMessage = "New user connected: " + userName;
+            String serverMessage = "it's " + userName;
             server.transmit(serverMessage, this);
 
             String clientMessage;

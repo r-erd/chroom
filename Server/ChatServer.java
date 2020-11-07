@@ -15,16 +15,16 @@ public class ChatServer{
         }
 
         public void execute() {
-            try (ServerSocket serverSocket = new ServerSocket(port)) {
-                System.out.println("Chat Server is listening on port " + port);
+            try (ServerSocket serverSocket = new ServerSocket(this.port)) {
+                System.out.println("Chat Server is listening on port " + this.port);
 
                 while (true) {
                     Socket socket = serverSocket.accept();
-                    System.out.println("New user connected");
+                    System.out.println("someone connected");
 
                     UserThread newUser = new UserThread(socket, this);
                     userThreads.add(newUser);
-                    newUser.run();
+                    newUser.start();
                 }
 
             } catch (IOException e) {
@@ -56,22 +56,22 @@ public class ChatServer{
         }
 
 
-        //ADD USER
+        //ADD USER - stores username
         void addUsername(String userName) {
             userNames.add(userName);
         }
 
-        //QUIT CHAT
+        //QUIT CHAT - removes username and userthread
         void removeUser(String userName, UserThread aUser) {
             boolean removed  = userNames.remove(userName);
             if (removed) {
                 userThreads.remove(aUser);
-                System.out.println("The user " + userName + "disconnected");
+                System.out.println("The user " + userName + " disconnected");
             }
         }
 
         //tools
-        Set<String>getUserNames(){
+        Set<String> getUserNames(){
             return this.userNames;
         }
 
