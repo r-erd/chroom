@@ -4,7 +4,10 @@ import java.io.*;
 public class ChatClient {
     private String hostname;
     private int port;
-    private String userName;
+    public String userName;
+    public boolean loggedIn;
+    public boolean userExists;
+    public boolean correctPassword;
     
 
     //constructor
@@ -15,9 +18,10 @@ public class ChatClient {
 
     public void execute() {
         try {
+            System.out.print("\033[H\033[2J");
             Socket socket = new Socket(hostname, port);
 
-            System.out.println("connected to the server");
+            System.out.println("connected to the server - disconnect by sending the message >quit!< !");
 
             new ReadThread(socket, this).start();
             new WriteThread(socket, this).start();
@@ -41,7 +45,7 @@ public class ChatClient {
 
      public static void main(String[] args){
          if(args.length < 2){ 
-            System.out.println("invalid hostname!");
+            System.out.println("err:: invalid synatax :: java ChatServer [ip] [port]");
             return;
          }
 

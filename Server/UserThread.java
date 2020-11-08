@@ -7,6 +7,8 @@ public class UserThread extends Thread { //handles the connection for each conne
     private Socket socket;
     private ChatServer server;
     private PrintWriter writer;
+    private boolean loggedIn;
+
 
     public UserThread(Socket socket, ChatServer server) {
             this.socket = socket;
@@ -24,9 +26,38 @@ public class UserThread extends Thread { //handles the connection for each conne
             printUsers();
 
             String userName = reader.readLine();
-            server.addUsername(userName);
 
-            String serverMessage = "it's " + userName;
+
+            /////////////////////////////////////////////////////// LOG IN ////////////////////////////////
+                //user exists 
+            if (server.userExists(userName)){
+                do {
+                    server.transmitSingle("\n[server] : You already have an account. Please enter correct password.", this);
+                    String password = reader.readLine();
+                    if (server.checkPassword(userName, password)){
+                        this.loggedIn = true;
+                        //we dont ever get here
+                    }
+                    } while (!this.loggedIn);
+
+
+            } else {
+                server.transmitSingle("\n[server] : You are a new user. Please set a password.", this);
+                //create new user
+                String password = reader.readLine();
+                server.addUser(userName, password);
+            }
+
+            server.transmitSingle("\n[server] : You are now logged in! \n", this);
+
+            server.setOnline(userName);
+
+            /////////////////////////////////////////// regular message sending and receiving //////////////////////////////////
+
+
+
+
+            String serverMessage = "\n[server] : " +  userName + " connected";
             server.transmit(serverMessage, this);
 
             String clientMessage;
@@ -51,10 +82,10 @@ public class UserThread extends Thread { //handles the connection for each conne
         }
     }
 
-    //tools
+////////////////////////////////////////////////////////////////////////// helping functions ////////////////////////////////////////
     void printUsers() {
         if (server.hasUsers()) {
-            writer.println("Connected users: " + server.getUserNames());
+            writer.println("currently connected users: " + server.getOnlineUsers());
         } else {
             writer.println("No other users connected");
         }
@@ -65,46 +96,5 @@ public class UserThread extends Thread { //handles the connection for each conne
     void sendMessage(String message){
         writer.println(message);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*     public static void main(String[] args) throws IOException {
-
-        Socket socket = new Socket("localhost", 4999);
-        System.out.print("\033[H\033[2J");
-
-        if (socket.isConnected()){
-            System.out.println("connected to server successfully");
-        }
-
-        InputStream inputStream = socket.getInputStream();
-        OutputStream outputStream = socket.getOutputStream();
-
-
-        //SENDING
-        PrintWriter pr = new PrintWriter(outputStream);
-        System.out.println("client : " + "its me - the client");
-        pr.println("its me - the client");
-        pr.flush();
-        
-
-        //RECEIVING
-        InputStreamReader in = new InputStreamReader(inputStream);
-        BufferedReader bf = new BufferedReader(in);
-        String str = bf.readLine();
-        System.out.println("server : " + str);
-    } */
-
 
 }

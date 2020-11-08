@@ -20,19 +20,38 @@ public class ReadThread extends Thread {
             System.out.println("Error getting input stream: " + e.getMessage());
             e.printStackTrace();
         }
+
+
+        //login protocol here???!
+
+
+
+
     }
 
 
 public void run() {
     while(true){
         try {
+    
+
             String response = reader.readLine();
-            System.out.println("\n" + response);
+            System.out.println(response);
+            
+
+
+            if (response.equals("\n [server] : You are now logged in!")){
+                client.loggedIn = true;
+            }
+
+            if (response.equals("\n [server] : You already have an account. Please enter correct password.")){
+                client.userExists = true;
+            }
 
             //print username after displaying the message
-            if (client.getUsername() != null) {
+/*             if (client.getUsername() != null) {
                 System.out.print("[" + client.getUsername() + "]:");
-            }
+            } */
 
         } catch (IOException e){
             System.out.println("Error reading from server: " + e.getMessage());

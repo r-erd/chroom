@@ -27,15 +27,51 @@ public class WriteThread extends Thread {
         Console console = System.console();
         
         String userName = console.readLine("\nEnter your username: ");
-        client.setUsername(this.userName);
-        writer.println(this.userName);
+        client.setUsername(userName);
+        writer.println(userName);
+
+
+        //check input password or save password to server
+        //wait for success message from server (changes loggedIn boolean)
+
+
+//========================================================== user exists
+        if (client.userExists)  { 
+
+
+                    //enter password for existing user or create new password for new user
+        do {
+            String password = console.readLine("\nEnter your password: ");
+            writer.println(password);
+
+            } while (!client.loggedIn);
+            //check if password is correct 
+            ///get message from server whether password is correct
+            
+
+        } else {  // =====================================================    user doesnt exist
+            
+                //enter new password 
+                String password = console.readLine("\nEnter your password: ");
+                writer.println(password);
+                //and transmit it to server to save it!
+
+
+        }
+
+    
+
+
+
+
+
 
         String text;
 
         do {
-            this.text = console.readLine("[" + this.userName + "]: ");
-            writer.println(this.text);
-        } while (!this.text.equals("!quit"));
+            text = console.readLine();
+            writer.println(text);
+        } while (!text.equals("!quit"));
 
         try {
             socket.close();
