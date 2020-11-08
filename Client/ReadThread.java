@@ -3,6 +3,9 @@ import java.net.*;
 
 //reads messages from the server and prints them
 
+//TODO: messages still get read from the server while not being logged in 
+// make exception for messages containing the word server?????
+
 public class ReadThread extends Thread {
 
     private BufferedReader reader;
