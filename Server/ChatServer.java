@@ -56,7 +56,10 @@ public class ChatServer{
         void transmit(String message, UserThread excludeUser) {
             for (UserThread aUser : userThreads) {
                 if (aUser != excludeUser) {
-                    aUser.sendMessage(message);
+                    if (aUser.loggedIn) {
+                        aUser.sendMessage(message);
+                    }
+                    
                 }
             }
         }
@@ -108,6 +111,16 @@ public class ChatServer{
                     aUser.online = true;
                 }
             }
+        }
+
+        public boolean checkOnline(String username){
+            for (User aUser : database){
+                if (aUser.username.equals(username)){
+                    if (aUser.online == true)
+                        return true;
+                }
+            }
+            return false;
         }
 
         public void setOffline(String username){

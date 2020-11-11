@@ -7,7 +7,7 @@ public class UserThread extends Thread { //handles the connection for each conne
     private Socket socket;
     private ChatServer server;
     private PrintWriter writer;
-    private boolean loggedIn;
+    public boolean loggedIn;
 
 
     public UserThread(Socket socket, ChatServer server) {
@@ -46,6 +46,7 @@ public class UserThread extends Thread { //handles the connection for each conne
                 //create new user
                 String password = reader.readLine();
                 server.addUser(userName, password);
+                this.loggedIn = true;
             }
 
             server.transmitSingle("\n[server] : You are now logged in! \n", this);

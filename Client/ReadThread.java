@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 
 //reads messages from the server and prints them
-
+//jjsdjsjdjs  
 //TODO: messages still get read from the server while not being logged in 
 // make exception for messages containing the word server?????
 
@@ -24,32 +24,44 @@ public class ReadThread extends Thread {
             e.printStackTrace();
         }
 
-
-        //login protocol here???!
-
-
-
-
     }
 
 
 public void run() {
     while(true){
         try {
-    
+
 
             String response = reader.readLine();
             System.out.println(response);
+
+            if (response.equals("\n [server] : You are now logged in!")){
+                client.loggedIn = true;
+                System.out.println(response);
+            }
+    
+            if (response.equals("\n[server] : You are a new user. Please set a password.")){
+                System.out.println(response);
+            }
+
+            if (response.equals("\n [server] : You already have an account. Please enter correct password.")){
+                client.userExists = true;
+                System.out.println(response);
+            }
+
+            
+    
+
             
 
 
-            if (response.equals("\n [server] : You are now logged in!")){
+/*             if (response.equals("\n [server] : You are now logged in!")){
                 client.loggedIn = true;
             }
 
             if (response.equals("\n [server] : You already have an account. Please enter correct password.")){
                 client.userExists = true;
-            }
+            } */
 
             //print username after displaying the message
 /*             if (client.getUsername() != null) {

@@ -21,7 +21,7 @@ public class ChatClient {
             System.out.print("\033[H\033[2J");
             Socket socket = new Socket(hostname, port);
 
-            System.out.println("connected to the server - disconnect by sending the message >quit!< !");
+            System.out.println("connected to the server - disconnect by sending the message >!quit< ");
 
             new ReadThread(socket, this).start();
             new WriteThread(socket, this).start();
