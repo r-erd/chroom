@@ -4,16 +4,17 @@ import java.util.*;
 
 public class UserThread extends Thread { //handles the connection for each connected client, server starts one thread per user
 
-    private Socket socket;
+    private Socket socket; //ist quasi die Verbindung zum Client bzw die Leitung port usw
     private ChatServer server;
     private PrintWriter writer;
     public boolean loggedIn;
 
 
-    public UserThread(Socket socket, ChatServer server) {
+    public UserThread(Socket socket, ChatServer server) {  //übergibt Referenz auf Server und Socket (Verbindung)
             this.socket = socket;
             this.server = server;
     }
+
 
     public void run() {
         try {
@@ -23,12 +24,13 @@ public class UserThread extends Thread { //handles the connection for each conne
             OutputStream output = socket.getOutputStream();
             this.writer = new PrintWriter(output, true);
 
-            printUsers();
-
-            String userName = reader.readLine();
-
+            writer.println("currently connected users: " + server.getOnlineUsers());
 
             /////////////////////////////////////////////////////// LOG IN ////////////////////////////////
+
+
+            String userName = reader.readLine(); //empfange Username
+
                 //user exists 
             if (server.userExists(userName)){
                 do {
@@ -44,7 +46,7 @@ public class UserThread extends Thread { //handles the connection for each conne
             } else {
                 server.transmitSingle("\n[server] : You are a new user. Please set a password.", this);
                 //create new user
-                String password = reader.readLine();
+                String password = reader.readLine(); //empfange Passwort
                 server.addUser(userName, password);
                 this.loggedIn = true;
             }
@@ -84,14 +86,6 @@ public class UserThread extends Thread { //handles the connection for each conne
     }
 
 ////////////////////////////////////////////////////////////////////////// helping functions ////////////////////////////////////////
-    void printUsers() {
-        if (server.hasUsers()) {
-            writer.println("currently connected users: " + server.getOnlineUsers());
-        } else {
-            writer.println("No other users connected");
-        }
-    }
-
 
     //actually receives the messages by being called in the server for this thread with the message??
     void sendMessage(String message){
