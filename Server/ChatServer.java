@@ -1,6 +1,8 @@
 import java.net.*;    //Internetzugriff
 import java.io.*;     //Internet i/o
 import java.util.*;   //HashSets
+import java.awt.* ;
+import java.awt.image.BufferedImage;
 
 
 public class ChatServer{
@@ -29,6 +31,7 @@ public class ChatServer{
         public void execute() {
             try (ServerSocket sS = new ServerSocket(this.port)) {
                 System.out.println("Chat Server is listening on port " + this.port);
+                Ascii("running", 20); //von Stackoverflow genommen
 
                 while (true) {
                     Socket s = sS.accept();                                             //Verbindungsanfrage akzeptieren 
@@ -122,5 +125,32 @@ public class ChatServer{
                 }
             }
             return users;  //returned sowas : jonas robin fredda
+        }
+
+        public void Ascii(String text, int font){
+
+            int width = 200;
+            int height = 30;
+            BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            Graphics g = image.getGraphics();
+            g.setFont(new Font("SansSerif", Font.BOLD, font));
+    
+            Graphics2D graphics = (Graphics2D) g;
+            graphics.drawString(text, 10, 20);
+    
+           //save this image
+           //ImageIO.write(image, "png", new File("/users/mkyong/ascii-art.png"));
+    
+            for (int y = 0; y < height; y++) {
+                StringBuilder sb = new StringBuilder();
+                for (int x = 0; x < width; x++) {
+                    sb.append(image.getRGB(x, y) == -16777216 ? " " : "$");
+                }
+                if (sb.toString().trim().isEmpty()) {
+                    continue;
+                }
+    
+                System.out.println(sb);
+            }
         }
 }
