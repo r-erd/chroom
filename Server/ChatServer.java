@@ -61,6 +61,16 @@ public class ChatServer{
 
 
         ////////////////////// USER MANAGEMENT //////////////////////////////////////7
+
+        public User getUserFromDatabase(String username){
+            for (User aUser : this.database){
+                if (aUser.getUsername().equals(username)){
+                    return aUser;
+                }
+            }
+            return null;
+        }
+
         public void addUser(String username, String password){
             this.database.add(new User(username, password, true));  //true setzt User auf Online --> er wird unter "connected Users" angezeigt
         }
@@ -73,56 +83,42 @@ public class ChatServer{
         }
     
         public void changePassword(String username,String oldpassword, String newpassword){
-            for (User aUser : database){
-                if (this.checkPassword(username, oldpassword)){
-                    aUser.setPassword(newpassword);
-                }
+            if (this.checkPassword(username,oldpassword)){
+                getUserFromDatabase(username).setPassword(newpassword);
             }
-            this.database.add(new User(username, newpassword, true));
         }
     
         public boolean userExists(String username){
-            for (User aUser : this.database){
-                if (aUser.getUsername().equals(username)){
-                    return true;
-                }
-            }
+            if (getUserFromDatabase(username) != null)
+                return true;
             return false;
         }
 
         public void setStatus(String username, boolean onlineStatus){
-            for (User aUser : database){
-                if (aUser.getUsername().equals(username)){
-                    aUser.setOnline(onlineStatus);
-                }
-            }
+            getUserFromDatabase(username).setOnline(onlineStatus);
         }
 
 
         public boolean checkOnline(String username){
-            for (User aUser : database){
-                if (aUser.getUsername().equals(username)){
-                    if (aUser.isOnline() == true)
-                        return true;
-                }
-            }
+            if (getUserFromDatabase(username).isOnline() == true)
+                return true;
             return false;
         }
     
         public boolean checkPassword(String username, String password){
-            for (User aUser : database){
+            User aUser = getUserFromDatabase(username);
                 if (aUser.getUsername().equals(username) && aUser.getPassword().equals(password)){
                     return true;
                 }
-            }
+            
             return false;
         }
 
-        public String getOnlineUsers(){ //change how this works!
-            String users = "";
+        public ArrayList<User> getOnlineUsers(){ //change how this works!
+            ArrayList<User> users = new ArrayList<User>();
             for (User aUser : database){
                 if (aUser.isOnline() == true){
-                    users += " " + aUser.getUsername();
+                    users.add(aUser);
                 }
             }
             return users;  //returned sowas : jonas robin fredda

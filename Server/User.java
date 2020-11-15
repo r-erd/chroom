@@ -11,6 +11,10 @@ public class User {
         this.online = online;
     }
 
+    public String toString(){
+        return this.username;
+    }
+
     public String getUsername(){
         return this.username;
     }
