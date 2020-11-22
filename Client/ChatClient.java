@@ -12,48 +12,10 @@ public class ChatClient {
     public boolean userExists;
     public boolean correctPassword;
 
-    JFrame mainFrame;
-    JLabel derText;
-    JTextArea output;
-    Thread someThread;
-    
     public ChatClient(String hostname, int port) {
         this.hostname = hostname;
         this.port = port;
 
-        //von Stackoverflow
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    mainFrame = new JFrame();
-                    mainFrame.setTitle("chroom");
-                    mainFrame.setSize(1000, 620);
-                    mainFrame.setResizable(false);
-                    mainFrame.setLayout(null);
-                    mainFrame.setLocationRelativeTo(null);
-                    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    // some more gui init
-    
-                    mainFrame.setVisible(true);
-                }
-            });
-
-            //von Stackoverflow
-            someThread = new Thread(new Runnable() {
-                @Override 
-                //ui stuff
-                public void run(){
-                    output = new JTextArea();
-                    output.append("");
-                    output.setBounds(250,500,500,28);
-                    mainFrame.add(output);
-                    derText = new JLabel("hier stehen irgendwann Chatnachrichten");
-                    derText.setBounds(250,200,500,100);
-                    mainFrame.add(derText);
-                }
-            });
-    
-            someThread.start();
     }
 
 
