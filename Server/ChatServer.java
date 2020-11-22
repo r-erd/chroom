@@ -29,14 +29,14 @@ public class ChatServer{
 //======================================================================================================
 
         public void execute() {
-            try (ServerSocket sS = new ServerSocket(this.port)) {
+            try (ServerSocket serverSocket = new ServerSocket(this.port)) {
                 System.out.println("Chat Server is listening on port " + this.port);
                 Ascii("running", 20); //von Stackoverflow genommen
 
                 while (true) {
-                    Socket s = sS.accept();                                             //Verbindungsanfrage akzeptieren 
+                    Socket socket = serverSocket.accept();                                             //Verbindungsanfrage akzeptieren 
                     System.out.println("someone connected");
-                    UserThread newUser = new UserThread(s, this);                      //erstelle eigenen Thread für den User auf dem Server und starte ihn
+                    UserThread newUser = new UserThread(socket, this);                      //erstelle eigenen Thread für den User auf dem Server und starte ihn
                     userThreads.add(newUser);
                     newUser.start();
                 }
