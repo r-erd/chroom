@@ -2,7 +2,6 @@ import java.net.*;
 import java.io.*;
 import java.awt.* ;
 import java.awt.image.BufferedImage;
-import javax.swing.*;
 
 public class ChatClient {
     private String hostname;
