@@ -127,6 +127,8 @@ public class ChatServer{
             return users;  //returned sowas : jonas robin fredda
         }
 
+
+        //von Stackoverflow genommen
         public void Ascii(String text, int font){
 
             int width = 200;
@@ -137,9 +139,6 @@ public class ChatServer{
     
             Graphics2D graphics = (Graphics2D) g;
             graphics.drawString(text, 10, 20);
-    
-           //save this image
-           //ImageIO.write(image, "png", new File("/users/mkyong/ascii-art.png"));
     
             for (int y = 0; y < height; y++) {
                 StringBuilder sb = new StringBuilder();
