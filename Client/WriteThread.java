@@ -14,7 +14,7 @@ public class WriteThread extends Thread {
 
         try {
             OutputStream output = socket.getOutputStream();
-            writer = new PrintWriter(output, true);
+            this.writer = new PrintWriter(output, true);
         } catch (IOException e) {
             System.out.println("Error getting output stream: " + e.getMessage());
             e.printStackTrace();
@@ -27,20 +27,20 @@ public class WriteThread extends Thread {
         Console console = System.console();
         String userName = console.readLine("\nEnter your username: ");
         client.setUsername(userName);
-        writer.println(userName);
+        this.writer.println(userName);
 
         if (client.userExists)  {  // user exists
                     //enter password for existing user or create new password for new user
         do {
             String password = console.readLine("\n");
-            writer.println(password);
+            this.writer.println(password);
             //check if password is correct 
             ///get message from server whether password is correct
 
             } while (!client.loggedIn);
         } else {  //user doesnt exist
                 String password = console.readLine("\n"); //set new password
-                writer.println(password);                 //and transmit it to server to save it!
+                this.writer.println(password);                 //and transmit it to server to save it!
         }
 
         // ===================== GET AND SEND MESSAGES ===================================
@@ -48,7 +48,7 @@ public class WriteThread extends Thread {
 
         do {
             text = console.readLine();
-            writer.println(text);
+            this.writer.println(text);
         } while (!text.equals("!quit"));
 
         try {

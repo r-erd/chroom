@@ -34,7 +34,7 @@ public class ChatClient {
 
     public void execute() {
         try {
-            System.out.print("\033[H\033[2J");  // von Stackoverflow genommen, cleared console
+            System.out.print("\033[H\033[2J");  // von Stackoverflow genommen, cleared console, geht nicht auf Windows?!
             System.out.println("successfully connected to the server\n\navailable commands:\n!quit = disconnect from the server\n!connection = check your connection\n!online = get a list of online users\n");
             Ascii("chatroom", 12); // von Stackoveflow genommen
             Socket socket = new Socket(hostname, port);
@@ -45,8 +45,11 @@ public class ChatClient {
 
         } catch (UnknownHostException e){
             System.out.println("couldn't connect to server: " + e.getMessage());
+            e.printStackTrace();
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+
         }
     }
     
