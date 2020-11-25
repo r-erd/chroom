@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class ChatServer{
 
         private int port;
-        private Set<User> database = new HashSet<User>();   //speichert User und deren Passwort
+        private Set<User> database = new HashSet<>();   //speichert User und deren Passwort
         private Set<UserThread> userThreads = new HashSet<>();  //darin werden die Threads verwaltet
 
         public ChatServer(int port) {
@@ -31,7 +31,7 @@ public class ChatServer{
         public void execute() {
             try (ServerSocket serverSocket = new ServerSocket(this.port)) {
                 System.out.println("Chat Server is listening on port " + this.port);
-                Ascii("running", 20); //von Stackoverflow genommen
+                Ascii("running", 12); //von Stackoverflow genommen
 
                 while (true) {
                     Socket socket = serverSocket.accept();                                             //Verbindungsanfrage akzeptieren 
@@ -50,10 +50,8 @@ public class ChatServer{
         ////////////////////////////////////// MESSAGING  //////////////////////////////////////////7
         void transmit(String message, UserThread excludeUser) {         //Message schreiben (bekommen alle, nur Sender nicht)
             for (UserThread aUser : userThreads) {
-                if (aUser != excludeUser) {
-                    if (aUser.authenticated()) {
-                        aUser.sendMessage(message);
-                    }
+                if (aUser != excludeUser && aUser.authenticated()) {
+                    aUser.sendMessage(message); 
                 }
             }
         }
@@ -84,8 +82,9 @@ public class ChatServer{
             userThreads.remove(aUser);
             System.out.println("The user " + userName + " disconnected");
         }
+
     
-        public void changePassword(String username,String oldpassword, String newpassword){
+        public void changePassword(String username,String oldpassword, String newpassword){ //currently unused
             if (this.checkPassword(username,oldpassword)){
                 getUserFromDatabase(username).setPassword(newpassword);
             }
@@ -117,14 +116,14 @@ public class ChatServer{
             return false;
         }
 
-        public ArrayList<User> getOnlineUsers(){ //change how this works!
+        public ArrayList<User> getOnlineUsers(){ 
             ArrayList<User> users = new ArrayList<User>();
             for (User aUser : database){
                 if (aUser.isOnline() == true){
                     users.add(aUser);
                 }
             }
-            return users;  //returned sowas : jonas robin fredda
+            return users; 
         }
 
 

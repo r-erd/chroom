@@ -24,7 +24,7 @@ public class WriteThread extends Thread {
     //==================================== LOG IN =================================
 
     public void run() {
-        Console console = System.console();
+        Console console = System.console();  //doesnt work in intelliJ
         String userName = console.readLine("\nEnter your username: ");
         client.setUsername(userName);
         this.writer.println(userName);

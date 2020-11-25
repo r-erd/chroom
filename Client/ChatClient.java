@@ -21,7 +21,7 @@ public class ChatClient {
     public static void main(String[] args){
         if(args.length < 2){ 
            System.out.println("invalid synatax, start Client like this:  java ChatClient [ip] [port]");
-           return;
+           System.exit(0);
         }
 
         String hostname = args[0];
@@ -41,27 +41,24 @@ public class ChatClient {
             new ReadThread(socket, this).start();
             new WriteThread(socket, this).start();
 
-
-
         } catch (UnknownHostException e){
             System.out.println("couldn't connect to server: " + e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
             e.printStackTrace();
-
         }
     }
     
-         void setUsername(String userName) {
+    void setUsername(String userName) {
             this.userName = userName;
-        }
+    }
    
-        String getUsername() {
+    String getUsername() {
             return this.userName;
-        }
+    }
 
-        public void Ascii(String text, int font){
+    public void Ascii(String text, int font){
 
             int width = 100;
             int height = 30;

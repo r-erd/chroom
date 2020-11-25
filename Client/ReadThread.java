@@ -21,7 +21,6 @@ public class ReadThread extends Thread {
             System.out.println("Error getting InputStream: " + e.getMessage());
             e.printStackTrace();
         }
-
     }
 
 

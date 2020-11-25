@@ -23,7 +23,7 @@ public class UserThread extends Thread { //handles the connection for each conne
             OutputStream out = s.getOutputStream();
             this.writer = new PrintWriter(out, true); //auto-flush enabled
 
-            server.transmitSingle("currently connected users: " + server.getOnlineUsers(), this); //make this return an array and print it with the number of onlineUsers
+            server.transmitSingle("currently connected users: " + server.getOnlineUsers(), this); 
 
             /////////////////////////////////////////////////////// LOG IN ////////////////////////////////
             String userName = reader.readLine();
@@ -78,13 +78,7 @@ public class UserThread extends Thread { //handles the connection for each conne
         }
     }
 
-
-            //==========================================================================================
-
-
-
-
-            //SEND MESSAGE TO SERVER (write to Output Stream)
+            //SEND MESSAGE (TO CLIENT) (write to Output Stream)
     public void sendMessage(String message){
         writer.println(message);
     }
